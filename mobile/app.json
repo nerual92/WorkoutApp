@@ -22,6 +22,11 @@
     },
     "platforms": [
       "android"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "d8618cd8-29b8-4ff7-9534-3444bd052e9c"
+      }
+    }
   }
 }
