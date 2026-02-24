@@ -14,7 +14,6 @@ WorkoutApp/
 │   └── package.json
 ├── web/             # React web app
 │   ├── src/
-│   │   ├── pages/
 │   │   ├── components/
 │   │   └── App.tsx
 │   └── package.json

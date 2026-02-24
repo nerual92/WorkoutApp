@@ -1,6 +1,4 @@
-import { StyleSheet, Dimensions, Platform, useColorScheme } from 'react-native';
-
-const { width } = Dimensions.get('window');
+import { StyleSheet } from 'react-native';
 
 // Wealthsimple-inspired forest green dark theme
 const themeColors = {

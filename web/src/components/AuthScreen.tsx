@@ -1,15 +1,11 @@
 import React, { useState } from 'react';
 import { login, register, resetPassword } from 'workout-shared';
-import { Dumbbell, Mail, Lock, LogIn, UserPlus, ArrowLeft, Check } from 'lucide-react';
+import { Dumbbell, Mail, Lock, LogIn, UserPlus, ArrowLeft } from 'lucide-react';
 import './AuthScreen.css';
-
-interface AuthScreenProps {
-  onAuthenticated: () => void;
-}
 
 type AuthMode = 'login' | 'register' | 'reset';
 
-export default function AuthScreen({ onAuthenticated }: AuthScreenProps) {
+export default function AuthScreen() {
   const [mode, setMode] = useState<AuthMode>('login');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

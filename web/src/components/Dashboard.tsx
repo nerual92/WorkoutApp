@@ -2,7 +2,7 @@ import React from 'react';
 import type { UserProgram } from 'workout-shared';
 import { EXERCISES } from 'workout-shared';
 import { getWeekProgression } from 'workout-shared';
-import { BarChart3, FileText, Dumbbell, Trophy, CalendarDays, Rocket } from 'lucide-react';
+import { BarChart3, FileText, Rocket } from 'lucide-react';
 import './Dashboard.css';
 
 interface DashboardProps {

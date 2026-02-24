@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import type { UserProgram, WorkoutSet, WorkoutSession } from 'workout-shared';
 import { EXERCISES } from 'workout-shared';
 import { generateId, getTodayISO, getWeekProgression, getLastWeightForExercise } from 'workout-shared';
-import { Check, Lock, Unlock, ChevronLeft, ChevronRight, SkipForward, FileText } from 'lucide-react';
+import { Check, Lock, ChevronLeft, ChevronRight, SkipForward } from 'lucide-react';
 import { useToast } from '../App';
 import ConfirmModal from './ConfirmModal';
 import './WorkoutTracker.css';

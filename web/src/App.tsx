@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef, createContext, useContext, useMemo } from 'react';
+import React, { useState, useEffect, useCallback, useRef, createContext, useContext } from 'react';
 import { Home, BarChart3, Download, Upload, RefreshCw, Dumbbell, ChevronLeft, ChevronRight, Menu, X, LogOut } from 'lucide-react';
 import './App.css';
 import ProgramSetup from './components/ProgramSetup';
@@ -9,7 +9,7 @@ import Toast, { ToastMessage } from './components/Toast';
 import ConfirmModal from './components/ConfirmModal';
 import AuthScreen from './components/AuthScreen';
 import type { UserProgram, ArchivedProgram } from 'workout-shared';
-import { generateId, onAuthChange, logout, getCurrentUser, saveUserProgram, clearUserProgram, subscribeToProgramChanges } from 'workout-shared';
+import { generateId, onAuthChange, logout, saveUserProgram, subscribeToProgramChanges } from 'workout-shared';
 import type { AuthUser } from 'workout-shared';
 
 type AppView = 'setup' | 'home' | 'workout' | 'analytics';
@@ -364,7 +364,7 @@ function App() {
   if (!authUser) {
     return (
       <ToastContext.Provider value={{ showToast }}>
-        <AuthScreen onAuthenticated={() => {}} />
+        <AuthScreen />
         <Toast toasts={toasts} onRemove={removeToast} />
       </ToastContext.Provider>
     );

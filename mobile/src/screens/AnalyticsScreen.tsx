@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState } from 'react';
 import {
   View,
   ScrollView,
@@ -9,7 +9,6 @@ import {
 } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import type { WorkoutSession, ArchivedProgram } from 'workout-shared';
 import { EXERCISES } from 'workout-shared';
 import { calculateVolume } from 'workout-shared';
 import { useAppContext } from '../AppContext';
