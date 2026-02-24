@@ -563,7 +563,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   tabActive: {
-    backgroundColor: colors.primary,
+    backgroundColor: colors.primaryBright,
   },
   tabText: {
     fontSize: 13,
@@ -584,16 +584,13 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     padding: spacing.md,
     alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.05,
-    shadowRadius: 4,
-    elevation: 2,
+    borderWidth: 1,
+    borderColor: colors.border,
   },
   statValue: {
     fontSize: 22,
     fontWeight: '700',
-    color: colors.primary,
+    color: colors.primaryBright,
   },
   statLabel: {
     fontSize: 12,
@@ -676,11 +673,8 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     padding: spacing.md,
     alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.05,
-    shadowRadius: 4,
-    elevation: 2,
+    borderWidth: 1,
+    borderColor: colors.border,
   },
   trendCardLabel: {
     fontSize: 12,
@@ -689,7 +683,7 @@ const styles = StyleSheet.create({
   trendCardValue: {
     fontSize: 18,
     fontWeight: '700',
-    color: colors.primary,
+    color: colors.primaryBright,
     marginTop: 2,
   },
   trendRow: {

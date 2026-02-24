@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { StatusBar, useColorScheme, View } from 'react-native';
-import { NavigationContainer, DarkTheme, DefaultTheme } from '@react-navigation/native';
+import { StatusBar, View } from 'react-native';
+import { NavigationContainer, DarkTheme } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -25,8 +25,6 @@ const Tab = createBottomTabNavigator();
 
 function AppContent() {
   const themeColors = useThemeColors();
-  const colorScheme = useColorScheme();
-  const isDark = colorScheme === 'dark';
   const [userProgram, setUserProgramState] = useState<UserProgram | null>(null);
   const [loaded, setLoaded] = useState(false);
   const [workoutDayOverride, setWorkoutDayOverride] = useState<number | null>(null);
@@ -135,25 +133,16 @@ function AppContent() {
     return <AuthScreen />;
   }
 
-  const navTheme = isDark ? {
+  const navTheme = {
     ...DarkTheme,
     colors: {
       ...DarkTheme.colors,
-      primary: themeColors.primary,
+      primary: themeColors.primaryBright,
       background: themeColors.background,
       card: themeColors.surface,
       text: themeColors.text,
       border: themeColors.border,
-    },
-  } : {
-    ...DefaultTheme,
-    colors: {
-      ...DefaultTheme.colors,
-      primary: themeColors.primary,
-      background: themeColors.background,
-      card: themeColors.surface,
-      text: themeColors.text,
-      border: themeColors.border,
+      notification: themeColors.primaryBright,
     },
   };
 
@@ -161,8 +150,8 @@ function AppContent() {
     <AppContext.Provider value={contextValue}>
       <View style={{ flex: 1 }}>
       <StatusBar
-        barStyle={isDark ? 'light-content' : 'light-content'}
-        backgroundColor={themeColors.primary}
+        barStyle="light-content"
+        backgroundColor={themeColors.background}
       />
       <NavigationContainer theme={navTheme}>
         <Tab.Navigator
@@ -175,7 +164,7 @@ function AppContent() {
               else if (route.name === 'Analytics') iconName = 'chart-line';
               return <MaterialCommunityIcons name={iconName} size={size} color={color} />;
             },
-            tabBarActiveTintColor: themeColors.primary,
+            tabBarActiveTintColor: themeColors.primaryBright,
             tabBarInactiveTintColor: themeColors.textMuted,
             tabBarStyle: {
               backgroundColor: themeColors.surface,
@@ -188,11 +177,13 @@ function AppContent() {
               fontWeight: '600',
             },
             headerStyle: {
-              backgroundColor: themeColors.primary,
+              backgroundColor: themeColors.surface,
               elevation: 0,
               shadowOpacity: 0,
+              borderBottomWidth: 1,
+              borderBottomColor: themeColors.border,
             },
-            headerTintColor: '#fff',
+            headerTintColor: themeColors.text,
             headerTitleStyle: {
               fontWeight: '700',
               fontSize: 18,

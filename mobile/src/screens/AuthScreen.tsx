@@ -33,16 +33,16 @@ export default function AuthScreen() {
   };
 
   const getPasswordStrength = (pw: string): { label: string; color: string; width: number } => {
-    if (pw.length === 0) return { label: '', color: '#e5e7eb', width: 0 };
-    if (pw.length < 6) return { label: 'Too short', color: '#ef4444', width: 0.2 };
-    if (pw.length < 8) return { label: 'Weak', color: '#f59e0b', width: 0.4 };
+    if (pw.length === 0) return { label: '', color: colors.border, width: 0 };
+    if (pw.length < 6) return { label: 'Too short', color: colors.danger, width: 0.2 };
+    if (pw.length < 8) return { label: 'Weak', color: colors.warning, width: 0.4 };
     const hasUpper = /[A-Z]/.test(pw);
     const hasNumber = /[0-9]/.test(pw);
     const hasSpecial = /[^A-Za-z0-9]/.test(pw);
     const score = [hasUpper, hasNumber, hasSpecial].filter(Boolean).length;
-    if (score >= 2 && pw.length >= 10) return { label: 'Strong', color: '#22c55e', width: 1 };
-    if (score >= 1) return { label: 'Fair', color: '#f59e0b', width: 0.6 };
-    return { label: 'Weak', color: '#f59e0b', width: 0.4 };
+    if (score >= 2 && pw.length >= 10) return { label: 'Strong', color: colors.success, width: 1 };
+    if (score >= 1) return { label: 'Fair', color: colors.warning, width: 0.6 };
+    return { label: 'Weak', color: colors.warning, width: 0.4 };
   };
 
   const handleSubmit = async () => {
@@ -134,11 +134,11 @@ export default function AuthScreen() {
           ) : null}
 
           <View style={styles.inputContainer}>
-            <MaterialCommunityIcons name="email-outline" size={20} color="#9ca3af" style={styles.inputIcon} />
+            <MaterialCommunityIcons name="email-outline" size={20} color={colors.textMuted} style={styles.inputIcon} />
             <TextInput
               style={styles.input}
               placeholder="Email address"
-              placeholderTextColor="#9ca3af"
+              placeholderTextColor={colors.textMuted}
               value={email}
               onChangeText={setEmail}
               keyboardType="email-address"
@@ -150,11 +150,11 @@ export default function AuthScreen() {
           {mode !== 'reset' && (
             <>
               <View style={styles.inputContainer}>
-                <MaterialCommunityIcons name="lock-outline" size={20} color="#9ca3af" style={styles.inputIcon} />
+                <MaterialCommunityIcons name="lock-outline" size={20} color={colors.textMuted} style={styles.inputIcon} />
                 <TextInput
                   style={styles.input}
                   placeholder="Password"
-                  placeholderTextColor="#9ca3af"
+                  placeholderTextColor={colors.textMuted}
                   value={password}
                   onChangeText={setPassword}
                   secureTextEntry
@@ -175,11 +175,11 @@ export default function AuthScreen() {
 
           {mode === 'register' && (
             <View style={styles.inputContainer}>
-              <MaterialCommunityIcons name="lock-check-outline" size={20} color="#9ca3af" style={styles.inputIcon} />
+              <MaterialCommunityIcons name="lock-check-outline" size={20} color={colors.textMuted} style={styles.inputIcon} />
               <TextInput
                 style={styles.input}
                 placeholder="Confirm password"
-                placeholderTextColor="#9ca3af"
+                placeholderTextColor={colors.textMuted}
                 value={confirmPassword}
                 onChangeText={setConfirmPassword}
                 secureTextEntry
@@ -240,7 +240,7 @@ export default function AuthScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.primary,
+    backgroundColor: colors.background,
   },
   scrollContent: {
     flexGrow: 1,
@@ -248,40 +248,37 @@ const styles = StyleSheet.create({
     padding: spacing.lg,
   },
   card: {
-    backgroundColor: '#fff',
+    backgroundColor: colors.surface,
     borderRadius: 16,
+    borderWidth: 1,
+    borderColor: colors.border,
     padding: spacing.xl,
     alignItems: 'center',
-    elevation: 8,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.2,
-    shadowRadius: 12,
   },
   title: {
     fontSize: 22,
     fontWeight: '700',
-    color: '#1a1a2e',
+    color: colors.text,
     marginTop: spacing.sm,
   },
   subtitle: {
     fontSize: 14,
-    color: '#6b7280',
+    color: colors.textSecondary,
     marginTop: 4,
     marginBottom: spacing.lg,
     textAlign: 'center',
   },
   errorBox: {
-    backgroundColor: '#fef2f2',
+    backgroundColor: colors.dangerLight,
     borderWidth: 1,
-    borderColor: '#fecaca',
+    borderColor: colors.danger,
     borderRadius: 8,
     padding: spacing.sm,
     width: '100%',
     marginBottom: spacing.sm,
   },
   errorText: {
-    color: '#dc2626',
+    color: colors.danger,
     fontSize: 13,
     textAlign: 'center',
   },
@@ -289,10 +286,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     width: '100%',
-    borderWidth: 1.5,
-    borderColor: '#e5e7eb',
+    borderWidth: 1,
+    borderColor: colors.border,
     borderRadius: 10,
-    backgroundColor: '#f9fafb',
+    backgroundColor: colors.surfaceElevated,
     marginBottom: spacing.sm,
   },
   inputIcon: {
@@ -303,7 +300,7 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
     paddingHorizontal: 10,
     fontSize: 15,
-    color: '#1a1a2e',
+    color: colors.text,
   },
   submitBtn: {
     flexDirection: 'row',
@@ -337,10 +334,10 @@ const styles = StyleSheet.create({
   },
   linkText: {
     fontSize: 13,
-    color: '#6b7280',
+    color: colors.textSecondary,
   },
   linkBold: {
-    color: colors.primary,
+    color: colors.primaryBright,
     fontWeight: '600',
   },
   strengthRow: {
@@ -354,7 +351,7 @@ const styles = StyleSheet.create({
   strengthBar: {
     flex: 1,
     height: 4,
-    backgroundColor: '#e5e7eb',
+    backgroundColor: colors.border,
     borderRadius: 2,
     flexDirection: 'row',
     overflow: 'hidden',

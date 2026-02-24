@@ -8,7 +8,7 @@
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "backgroundColor": "#667eea"
+      "backgroundColor": "#090B0A"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -16,7 +16,7 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#667eea"
+        "backgroundColor": "#090B0A"
       },
       "package": "com.sbs.workouttracker"
     },

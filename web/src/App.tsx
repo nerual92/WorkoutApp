@@ -354,8 +354,8 @@ function App() {
   // Show nothing while checking auth
   if (!authChecked) {
     return (
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh', background: '#f0f2f5' }}>
-        <Dumbbell size={48} style={{ color: '#667eea', animation: 'spin 1s linear infinite' }} />
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh', background: '#090B0A' }}>
+        <Dumbbell size={48} style={{ color: '#1A7A42', animation: 'spin 1s linear infinite' }} />
       </div>
     );
   }

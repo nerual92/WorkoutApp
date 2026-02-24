@@ -730,8 +730,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   dotCurrent: {
-    borderColor: colors.primary,
-    backgroundColor: '#eef1ff',
+    borderColor: colors.primaryBright,
+    backgroundColor: colors.primaryMuted,
   },
   dotDone: {
     borderColor: colors.success,
@@ -797,7 +797,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: '#fef3c7',
+    backgroundColor: colors.warningLight,
     borderRadius: 10,
     padding: spacing.md,
     marginBottom: spacing.md,
@@ -810,7 +810,7 @@ const styles = StyleSheet.create({
   restValue: {
     fontSize: 24,
     fontWeight: '700',
-    color: '#92400e',
+    color: colors.warning,
   },
   skipRestBtn: {
     flexDirection: 'row',
@@ -898,13 +898,13 @@ const styles = StyleSheet.create({
     width: 56,
     height: 36,
     borderWidth: 1,
-    borderColor: colors.primary,
+    borderColor: colors.primaryBright,
     borderRadius: 6,
     textAlign: 'center',
     fontSize: 14,
     fontWeight: '600',
     color: colors.text,
-    backgroundColor: '#fff',
+    backgroundColor: colors.surfaceElevated,
     paddingHorizontal: 4,
   },
   editX: {

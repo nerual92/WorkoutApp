@@ -209,16 +209,13 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     padding: spacing.md,
     alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.05,
-    shadowRadius: 4,
-    elevation: 2,
+    borderWidth: 1,
+    borderColor: colors.border,
   },
   statValue: {
     fontSize: 22,
     fontWeight: '700',
-    color: colors.primary,
+    color: colors.primaryBright,
   },
   statLabel: {
     fontSize: 12,
@@ -255,8 +252,8 @@ const styles = StyleSheet.create({
     borderColor: colors.border,
   },
   dayCardNext: {
-    borderColor: colors.primary,
-    backgroundColor: '#f0f3ff',
+    borderColor: colors.primaryBright,
+    backgroundColor: colors.primaryMuted,
   },
   dayCardHeader: {
     flexDirection: 'row',
@@ -270,10 +267,10 @@ const styles = StyleSheet.create({
     color: colors.text,
   },
   dayNameNext: {
-    color: colors.primary,
+    color: colors.primaryBright,
   },
   nextBadge: {
-    backgroundColor: colors.primary,
+    backgroundColor: colors.primaryBright,
     paddingHorizontal: spacing.sm,
     paddingVertical: 2,
     borderRadius: 10,
