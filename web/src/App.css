@@ -108,12 +108,12 @@
 @media (max-width: 768px) {
   .sidebar {
     transform: translateX(-100%);
-    width: 280px;
+    width: 240px;
     box-shadow: none;
     transition: transform 0.25s ease, box-shadow 0.25s ease;
   }
   .sidebar.sidebar-open { transform: translateX(0); box-shadow: 4px 0 24px rgba(0,0,0,0.6); }
-  .sidebar-collapsed .sidebar.sidebar-open { width: 280px; }
+  .sidebar-collapsed .sidebar.sidebar-open { width: 240px; }
   .sidebar.sidebar-open .sidebar-title,
   .sidebar.sidebar-open .sidebar-link span { display: inline !important; }
   .sidebar-collapse-btn { display: none; }
@@ -152,5 +152,10 @@
 
   .has-sidebar .app-content,
   .sidebar-collapsed .app-content { margin-left: 0; }
-  .app-content { padding: 1.25rem 1rem; max-width: 100%; }
+  .app-content { 
+    padding: 1.25rem 1rem; 
+    max-width: 100%; 
+    margin: 0;
+    width: 100%;
+  }
 }

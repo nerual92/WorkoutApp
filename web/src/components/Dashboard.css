@@ -187,25 +187,25 @@
 .dash-action-btn:focus-visible { outline: 2px solid var(--color-primary-bright); outline-offset: 2px; }
 
 @media (max-width: 768px) {
-  .dash-welcome { margin-bottom: 2rem; }
-  .dash-welcome h2 { font-size: 1.5rem; }
-  .dash-subtitle { font-size: 0.95rem; }
+  .dash-welcome { margin-bottom: 1.5rem; }
+  .dash-welcome h2 { font-size: 1.4rem; }
+  .dash-subtitle { font-size: 0.9rem; }
   
   .dash-stats { 
     grid-template-columns: 1fr; 
     gap: 0.75rem;
     margin-bottom: 2rem;
   }
-  .dash-stat-card { padding: 1.25rem; }
-  .dash-stat-value { font-size: 1.75rem; }
-  .dash-stat-label { font-size: 0.85rem; }
+  .dash-stat-card { padding: 1rem; }
+  .dash-stat-value { font-size: 1.5rem; }
+  .dash-stat-label { font-size: 0.8rem; }
   
   .dash-day-grid { 
     grid-template-columns: 1fr; 
     gap: 0.75rem;
   }
   .dash-day-card { 
-    padding: 1.25rem;
+    padding: 1rem;
     min-height: 44px;
   }
   .dash-day-name { font-size: 1.05rem; }
