@@ -187,8 +187,47 @@
 .dash-action-btn:focus-visible { outline: 2px solid var(--color-primary-bright); outline-offset: 2px; }
 
 @media (max-width: 768px) {
-  .dash-welcome h2 { font-size: 1.4rem; }
-  .dash-stats { grid-template-columns: 1fr; }
-  .dash-day-grid { grid-template-columns: 1fr; }
-  .dash-last-header { flex-direction: column; align-items: flex-start; }
+  .dash-welcome { margin-bottom: 2rem; }
+  .dash-welcome h2 { font-size: 1.5rem; }
+  .dash-subtitle { font-size: 0.95rem; }
+  
+  .dash-stats { 
+    grid-template-columns: 1fr; 
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+  }
+  .dash-stat-card { padding: 1.25rem; }
+  .dash-stat-value { font-size: 1.75rem; }
+  .dash-stat-label { font-size: 0.85rem; }
+  
+  .dash-day-grid { 
+    grid-template-columns: 1fr; 
+    gap: 0.75rem;
+  }
+  .dash-day-card { 
+    padding: 1.25rem;
+    min-height: 44px;
+  }
+  .dash-day-name { font-size: 1.05rem; }
+  .dash-day-exercise { font-size: 0.75rem; padding: 0.2rem 0.55rem; }
+  
+  .dash-last-header { 
+    flex-direction: column; 
+    align-items: flex-start; 
+    padding: 1.25rem;
+  }
+  .dash-last-exercises { padding: 0.5rem 1.25rem; }
+  .dash-last-exercise { padding: 0.85rem 0; }
+  .dash-last-ex-name { font-size: 0.95rem; }
+  
+  .dash-actions { 
+    flex-direction: column; 
+    gap: 0.75rem; 
+  }
+  .dash-action-btn { 
+    padding: 0.85rem 1rem;
+    font-size: 0.95rem;
+    min-height: 48px;
+  }
+  .dash-action-btn svg { width: 18px; height: 18px; }
 }

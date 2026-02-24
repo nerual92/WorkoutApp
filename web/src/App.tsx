@@ -74,7 +74,7 @@ function App() {
     }
 
     // Subscribe to real-time program changes
-    firestoreUnsubRef.current = subscribeToProgramChanges(authUser.uid, (program) => {
+    firestoreUnsubRef.current = subscribeToProgramChanges(authUser.id, (program) => {
       isRemoteUpdate.current = true;
       if (program) {
         setUserProgram(program);
@@ -110,7 +110,7 @@ function App() {
       localStorage.setItem('userProgram', JSON.stringify(userProgram));
       // Sync to Firestore if authenticated and this isn't a remote update
       if (authUser && !isRemoteUpdate.current) {
-        saveUserProgram(authUser.uid, userProgram).catch(console.error);
+        saveUserProgram(authUser.id, userProgram).catch(console.error);
       }
     }
   }, [userProgram, authUser]);
