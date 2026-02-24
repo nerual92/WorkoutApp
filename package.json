@@ -1,0 +1,21 @@
+{
+  "name": "workout-tracker",
+  "version": "1.0.0",
+  "description": "Stronger by Science Workout Tracker - React Web + React Native Android",
+  "private": true,
+  "workspaces": [
+    "shared",
+    "web",
+    "mobile"
+  ],
+  "scripts": {
+    "install-all": "npm install && cd shared && npm install && cd ../web && npm install && cd ../mobile && npm install",
+    "web:dev": "cd web && npm run dev",
+    "web:build": "cd web && npm run build",
+    "mobile:start": "cd mobile && npm start",
+    "mobile:android": "cd mobile && npm run android"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  }
+}

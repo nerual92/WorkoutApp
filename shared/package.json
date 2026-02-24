@@ -1,0 +1,15 @@
+{
+  "name": "workout-shared",
+  "version": "1.0.0",
+  "description": "Shared types and utilities for Strongest by Science workout tracker",
+  "main": "src/index.ts",
+  "scripts": {
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.97.0"
+  }
+}

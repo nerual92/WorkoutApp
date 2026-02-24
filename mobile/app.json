@@ -1,0 +1,27 @@
+{
+  "expo": {
+    "name": "SBS Workout Tracker",
+    "slug": "sbs-workout-tracker",
+    "entryPoint": "./index.js",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "backgroundColor": "#667eea"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#667eea"
+      },
+      "package": "com.sbs.workouttracker"
+    },
+    "platforms": [
+      "android"
+    ]
+  }
+}

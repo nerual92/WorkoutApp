@@ -1,0 +1,42 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+web/dist/
+mobile/android/app/build/
+mobile/android/.gradle/
+mobile/android/build/
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Local env
+.env
+.env.local
+
+# Expo
+.expo/
+mobile/.expo/
+
+# Misc
+*.log
+npm-debug.log*
+
+# Android local
+mobile/android/local.properties
+mobile/android/app/debug.keystore
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Kotlin build cache
+mobile/android/app/build/
+mobile/android/react-settings-plugin/*.iml
+mobile/android/app/*.iml

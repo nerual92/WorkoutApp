@@ -1,0 +1,439 @@
+import { Exercise, Program } from './types';
+
+// All exercises from the Stronger by Science Novice Hypertrophy program
+export const EXERCISES: Exercise[] = [
+  // Compound, pec-dominant (8 options)
+  { id: 'bench_press', name: 'Bench Press', category: 'Compound', type: 'barbell', default: false },
+  { id: 'db_bench', name: 'Dumbbell Bench Press', category: 'Compound', type: 'dumbbell', default: true },
+  { id: 'incline_press', name: 'Incline Press', category: 'Compound', type: 'barbell', default: false },
+  { id: 'db_incline', name: 'Dumbbell Incline Press', category: 'Compound', type: 'dumbbell', default: false },
+  { id: 'machine_chest_press', name: 'Machine Chest Press', category: 'Compound', type: 'machine', default: false },
+  { id: 'machine_incline_press', name: 'Machine Incline Press', category: 'Compound', type: 'machine', default: false },
+  { id: 'dips', name: 'Dips', category: 'Compound', type: 'bodyweight', default: false },
+  { id: 'push_ups', name: 'Push-ups', category: 'Compound', type: 'bodyweight', default: false },
+  
+  // Compound, shoulder-dominant (7 options)
+  { id: 'standing_shoulder_press', name: 'Standing Shoulder Press', category: 'Compound', type: 'barbell', default: false },
+  { id: 'standing_db_shoulder_press', name: 'Standing Dumbbell Shoulder Press', category: 'Compound', type: 'dumbbell', default: false },
+  { id: 'seated_shoulder_press', name: 'Seated Shoulder Press', category: 'Compound', type: 'barbell', default: false },
+  { id: 'seated_db_shoulder_press', name: 'Seated Dumbbell Shoulder Press', category: 'Compound', type: 'dumbbell', default: false },
+  { id: 'machine_shoulder_press', name: 'Machine Shoulder Press', category: 'Compound', type: 'machine', default: false },
+  { id: 'barbell_push_press', name: 'Barbell Push Press', category: 'Compound', type: 'barbell', default: false },
+  { id: 'db_push_press', name: 'Dumbbell Push Press', category: 'Compound', type: 'dumbbell', default: true },
+  
+  // Compound, upper back horizontal (7 options)
+  { id: 'barbell_row', name: 'Barbell Row', category: 'Compound', type: 'barbell', default: false },
+  { id: 'one_arm_db_row', name: 'One-Arm Dumbbell Row', category: 'Compound', type: 'dumbbell', default: false },
+  { id: 't_bar_row', name: 'T-Bar Row', category: 'Compound', type: 'barbell', default: false },
+  { id: 'chest_supported_row', name: 'Chest-Supported Row', category: 'Compound', type: 'machine', default: false },
+  { id: 'chest_supported_db_row', name: 'Chest-Supported Dumbbell Row', category: 'Compound', type: 'dumbbell', default: true },
+  { id: 'seated_cable_row', name: 'Seated Cable Row', category: 'Compound', type: 'machine', default: false },
+  { id: 'machine_row', name: 'Machine Row', category: 'Compound', type: 'machine', default: false },
+  
+  // Compound, upper back vertical (7 options)
+  { id: 'pull_up', name: 'Pull-up', category: 'Compound', type: 'bodyweight', default: false },
+  { id: 'chin_up', name: 'Chin-up', category: 'Compound', type: 'bodyweight', default: false },
+  { id: 'neutral_grip_pull_up', name: 'Neutral Grip Pull-up', category: 'Compound', type: 'bodyweight', default: false },
+  { id: 'pull_down', name: 'Pull-down', category: 'Compound', type: 'machine', default: false },
+  { id: 'reverse_grip_pull_down', name: 'Reverse Grip Pull-down', category: 'Compound', type: 'machine', default: true },
+  { id: 'neutral_grip_pull_down', name: 'Neutral Grip Pull-down', category: 'Compound', type: 'machine', default: false },
+  { id: 'machine_pull_down', name: 'Machine Pull-down', category: 'Compound', type: 'machine', default: false },
+  
+  // Compound, hip-dominant (7 options)
+  { id: 'deadlift', name: 'Deadlift', category: 'Compound', type: 'barbell', default: true },
+  { id: 'rdl', name: 'Romanian Deadlift', category: 'Compound', type: 'barbell', default: false },
+  { id: 'stiff_leg_deadlift', name: 'Stiff-Legged Deadlift', category: 'Compound', type: 'barbell', default: false },
+  { id: 'trap_bar_deadlift', name: 'Trap Bar Deadlift', category: 'Compound', type: 'barbell', default: false },
+  { id: 'sumo_deadlift', name: 'Sumo Deadlift', category: 'Compound', type: 'barbell', default: false },
+  { id: 'glute_ham_raise', name: 'Glute-Ham Raise', category: 'Compound', type: 'bodyweight', default: false },
+  { id: 'good_morning', name: 'Good Morning', category: 'Compound', type: 'barbell', default: false },
+  
+  // Compound, knee-dominant (5 options)
+  { id: 'barbell_squat', name: 'Barbell Squat', category: 'Compound', type: 'barbell', default: true },
+  { id: 'barbell_front_squat', name: 'Barbell Front Squat', category: 'Compound', type: 'barbell', default: false },
+  { id: 'leg_press', name: 'Leg Press', category: 'Compound', type: 'machine', default: false },
+  { id: 'machine_hack_squat', name: 'Machine Hack Squat', category: 'Compound', type: 'machine', default: false },
+  { id: 'smith_machine_squat', name: 'Smith Machine Squat', category: 'Compound', type: 'machine', default: false },
+  
+  // Hip-dominant accessory (7 options)
+  { id: 'lying_hamstring_curl', name: 'Lying Hamstrings Curl', category: 'Accessory', type: 'machine', default: false },
+  { id: 'seated_hamstring_curl', name: 'Seated Hamstrings Curl', category: 'Accessory', type: 'machine', default: false },
+  { id: 'standing_hamstring_curl', name: 'Standing Hamstrings Curl', category: 'Accessory', type: 'machine', default: false },
+  { id: 'weighted_hip_thrust', name: 'Weighted Hip Thrust', category: 'Accessory', type: 'barbell', default: true },
+  { id: 'weighted_glute_bridge', name: 'Weighted Glute Bridge', category: 'Accessory', type: 'barbell', default: false },
+  { id: 'back_raise', name: 'Back Raise', category: 'Accessory', type: 'bodyweight', default: false },
+  { id: 'single_leg_rdl', name: 'Single Leg RDL', category: 'Accessory', type: 'dumbbell', default: false },
+  
+  // Quad-dominant accessory (5 options)
+  { id: 'knee_extensions', name: 'Knee Extensions', category: 'Accessory', type: 'machine', default: false },
+  { id: 'step_ups', name: 'Step-ups', category: 'Accessory', type: 'bodyweight', default: false },
+  { id: 'split_squats', name: 'Split Squats', category: 'Accessory', type: 'bodyweight', default: false },
+  { id: 'walking_lunges', name: 'Walking Lunges', category: 'Accessory', type: 'bodyweight', default: true },
+  { id: 'reverse_lunges', name: 'Reverse Lunges', category: 'Accessory', type: 'bodyweight', default: false },
+  
+  // Calves 1 (4 options)
+  { id: 'standing_calf_raise', name: 'Standing Calf Raise Machine', category: 'Calves', type: 'machine', default: true },
+  { id: 'smith_calf_raises', name: 'Smith Machine Calf Raises', category: 'Calves', type: 'machine', default: false },
+  { id: 'leg_press_calf_raises', name: 'Leg Press Calf Raises', category: 'Calves', type: 'machine', default: false },
+  { id: 'seated_calf_raises_1', name: 'Seated Calf Raises', category: 'Calves', type: 'machine', default: false },
+  
+  // Calves 2 (4 options)
+  { id: 'standing_calf_raise_2', name: 'Standing Calf Raise Machine', category: 'Calves', type: 'machine', default: true },
+  { id: 'smith_calf_raises_elevated', name: 'Smith Machine Calf Raises (Toes Elevated)', category: 'Calves', type: 'machine', default: false },
+  { id: 'leg_press_calf_raises_2', name: 'Leg Press Calf Raises', category: 'Calves', type: 'machine', default: false },
+  { id: 'seated_calf_raises_2', name: 'Seated Calf Raises', category: 'Calves', type: 'machine', default: false },
+  
+  // Vanity lift 1 - Biceps (8 options)
+  { id: 'preacher_curls', name: 'Preacher Curls', category: 'Vanity lifts', type: 'dumbbell', default: true },
+  { id: 'db_curl', name: 'Dumbbell Curl', category: 'Vanity lifts', type: 'dumbbell', default: false },
+  { id: 'hammer_curl', name: 'Hammer Curl', category: 'Vanity lifts', type: 'dumbbell', default: false },
+  { id: 'cable_curl', name: 'Cable Curl', category: 'Vanity lifts', type: 'machine', default: false },
+  { id: 'concentration_curl', name: 'Concentration Curl', category: 'Vanity lifts', type: 'dumbbell', default: false },
+  { id: 'barbell_curl', name: 'Barbell Curl', category: 'Vanity lifts', type: 'barbell', default: false },
+  { id: 'ez_bar_curl', name: 'EZ-Bar Curl', category: 'Vanity lifts', type: 'barbell', default: false },
+  { id: 'incline_db_curl', name: 'Incline Dumbbell Curl', category: 'Vanity lifts', type: 'dumbbell', default: false },
+  
+  // Vanity lift 2 - Triceps (8 options)
+  { id: 'skullcrushers', name: 'Skullcrushers', category: 'Vanity lifts', type: 'dumbbell', default: true },
+  { id: 'overhead_extension', name: 'Overhead Dumbbell Extension', category: 'Vanity lifts', type: 'dumbbell', default: false },
+  { id: 'close_grip_press', name: 'Close-Grip Bench Press', category: 'Vanity lifts', type: 'barbell', default: false },
+  { id: 'tricep_dips', name: 'Tricep Dips', category: 'Vanity lifts', type: 'bodyweight', default: false },
+  { id: 'tricep_kickback', name: 'Tricep Kickback', category: 'Vanity lifts', type: 'dumbbell', default: false },
+  { id: 'cable_overhead_extension', name: 'Cable Overhead Extension', category: 'Vanity lifts', type: 'machine', default: false },
+  { id: 'ez_bar_skullcrusher', name: 'EZ-Bar Skullcrusher', category: 'Vanity lifts', type: 'barbell', default: false },
+  { id: 'diamond_pushups', name: 'Diamond Push-ups', category: 'Vanity lifts', type: 'bodyweight', default: false },
+  
+  // Vanity lift 3 - Triceps cable work (6 options)
+  { id: 'cable_extensions', name: 'Cable Extensions', category: 'Vanity lifts', type: 'machine', default: true },
+  { id: 'rope_pushdown', name: 'Rope Pushdown', category: 'Vanity lifts', type: 'machine', default: false },
+  { id: 'single_arm_pushdown', name: 'Single-Arm Cable Pushdown', category: 'Vanity lifts', type: 'machine', default: false },
+  { id: 'reverse_grip_pushdown', name: 'Reverse-Grip Pushdown', category: 'Vanity lifts', type: 'machine', default: false },
+  { id: 'rope_overhead_extension', name: 'Rope Overhead Extension', category: 'Vanity lifts', type: 'machine', default: false },
+  { id: 'bar_pushdown', name: 'Straight Bar Pushdown', category: 'Vanity lifts', type: 'machine', default: false },
+  
+  // Vanity lift 4 - Triceps pulldowns (6 options)
+  { id: 'tricep_pulldowns', name: 'Tricep Pulldowns', category: 'Vanity lifts', type: 'machine', default: true },
+  { id: 'v_bar_pushdown', name: 'V-Bar Pushdown', category: 'Vanity lifts', type: 'machine', default: false },
+  { id: 'ez_bar_pushdown', name: 'EZ-Bar Pushdown', category: 'Vanity lifts', type: 'machine', default: false },
+  { id: 'dual_rope_pushdown', name: 'Dual Rope Pushdown', category: 'Vanity lifts', type: 'machine', default: false },
+  { id: 'single_arm_rope_pushdown', name: 'Single-Arm Rope Pushdown', category: 'Vanity lifts', type: 'machine', default: false },
+  { id: 'tricep_pressdown', name: 'Tricep Pressdown', category: 'Vanity lifts', type: 'machine', default: false },
+  
+  // Vanity lift 5 - Chest accessory (8 options)
+  { id: 'db_flyes', name: 'Dumbbell Flyes', category: 'Vanity lifts', type: 'dumbbell', default: true },
+  { id: 'cable_flyes', name: 'Cable Flyes', category: 'Vanity lifts', type: 'machine', default: false },
+  { id: 'pec_deck', name: 'Pec Deck', category: 'Vanity lifts', type: 'machine', default: false },
+  { id: 'incline_db_flyes', name: 'Incline Dumbbell Flyes', category: 'Vanity lifts', type: 'dumbbell', default: false },
+  { id: 'low_cable_flyes', name: 'Low-to-High Cable Flyes', category: 'Vanity lifts', type: 'machine', default: false },
+  { id: 'high_cable_flyes', name: 'High-to-Low Cable Flyes', category: 'Vanity lifts', type: 'machine', default: false },
+  { id: 'pushup_variations', name: 'Push-up Variations', category: 'Vanity lifts', type: 'bodyweight', default: false },
+  { id: 'svend_press', name: 'Svend Press', category: 'Vanity lifts', type: 'dumbbell', default: false },
+  
+  // Vanity lift 6 - Shoulders/delts (8 options)
+  { id: 'lateral_raise', name: 'Dumbbell Side Delt Raises', category: 'Vanity lifts', type: 'dumbbell', default: true },
+  { id: 'front_raise', name: 'Front Raises', category: 'Vanity lifts', type: 'dumbbell', default: false },
+  { id: 'rear_delt_flyes', name: 'Rear Delt Flyes', category: 'Vanity lifts', type: 'dumbbell', default: false },
+  { id: 'face_pulls', name: 'Face Pulls', category: 'Vanity lifts', type: 'machine', default: false },
+  { id: 'cable_lateral_raise', name: 'Cable Lateral Raise', category: 'Vanity lifts', type: 'machine', default: false },
+  { id: 'reverse_pec_deck', name: 'Reverse Pec Deck', category: 'Vanity lifts', type: 'machine', default: false },
+  { id: 'upright_row', name: 'Upright Row', category: 'Vanity lifts', type: 'dumbbell', default: false },
+  { id: 'band_pull_apart', name: 'Band Pull-Aparts', category: 'Vanity lifts', type: 'bodyweight', default: false },
+];
+
+// Muscle groups from the SBS Quick Setup tab (Column D)
+export interface MuscleGroup {
+  id: string;
+  name: string;
+  exerciseIds: string[];
+}
+
+export const MUSCLE_GROUPS: MuscleGroup[] = [
+  {
+    id: 'pec_dominant',
+    name: 'Compound, pec-dominant',
+    exerciseIds: ['bench_press', 'db_bench', 'incline_press', 'db_incline', 'machine_chest_press', 'machine_incline_press', 'dips', 'push_ups'],
+  },
+  {
+    id: 'shoulder_dominant',
+    name: 'Compound, shoulder-dominant',
+    exerciseIds: ['standing_shoulder_press', 'standing_db_shoulder_press', 'seated_shoulder_press', 'seated_db_shoulder_press', 'machine_shoulder_press', 'barbell_push_press', 'db_push_press'],
+  },
+  {
+    id: 'upper_back_horizontal',
+    name: 'Compound, upper back horizontal',
+    exerciseIds: ['barbell_row', 'one_arm_db_row', 't_bar_row', 'chest_supported_row', 'chest_supported_db_row', 'seated_cable_row', 'machine_row'],
+  },
+  {
+    id: 'upper_back_vertical',
+    name: 'Compound, upper back vertical',
+    exerciseIds: ['pull_up', 'chin_up', 'neutral_grip_pull_up', 'pull_down', 'reverse_grip_pull_down', 'neutral_grip_pull_down', 'machine_pull_down'],
+  },
+  {
+    id: 'hip_dominant',
+    name: 'Compound, hip-dominant',
+    exerciseIds: ['deadlift', 'rdl', 'stiff_leg_deadlift', 'trap_bar_deadlift', 'sumo_deadlift', 'glute_ham_raise', 'good_morning'],
+  },
+  {
+    id: 'knee_dominant',
+    name: 'Compound, knee-dominant',
+    exerciseIds: ['barbell_squat', 'barbell_front_squat', 'leg_press', 'machine_hack_squat', 'smith_machine_squat'],
+  },
+  {
+    id: 'hip_accessory',
+    name: 'Hip-dominant accessory',
+    exerciseIds: ['lying_hamstring_curl', 'seated_hamstring_curl', 'standing_hamstring_curl', 'weighted_hip_thrust', 'weighted_glute_bridge', 'back_raise', 'single_leg_rdl'],
+  },
+  {
+    id: 'quad_accessory',
+    name: 'Quad-dominant accessory',
+    exerciseIds: ['knee_extensions', 'step_ups', 'split_squats', 'walking_lunges', 'reverse_lunges'],
+  },
+  {
+    id: 'calves_1',
+    name: 'Calves 1',
+    exerciseIds: ['standing_calf_raise', 'smith_calf_raises', 'leg_press_calf_raises', 'seated_calf_raises_1'],
+  },
+  {
+    id: 'calves_2',
+    name: 'Calves 2',
+    exerciseIds: ['standing_calf_raise_2', 'smith_calf_raises_elevated', 'leg_press_calf_raises_2', 'seated_calf_raises_2'],
+  },
+  {
+    id: 'accessory_upper',
+    name: 'Accessory (Upper Body)',
+    exerciseIds: [
+      // Biceps
+      'preacher_curls', 'db_curl', 'hammer_curl', 'cable_curl', 'concentration_curl', 'barbell_curl', 'ez_bar_curl', 'incline_db_curl',
+      // Triceps
+      'skullcrushers', 'overhead_extension', 'close_grip_press', 'tricep_dips', 'tricep_kickback', 'cable_overhead_extension', 'ez_bar_skullcrusher', 'diamond_pushups',
+      'cable_extensions', 'rope_pushdown', 'single_arm_pushdown', 'reverse_grip_pushdown', 'rope_overhead_extension', 'bar_pushdown',
+      'tricep_pulldowns', 'v_bar_pushdown', 'ez_bar_pushdown', 'dual_rope_pushdown', 'single_arm_rope_pushdown', 'tricep_pressdown',
+      // Chest
+      'db_flyes', 'cable_flyes', 'pec_deck', 'incline_db_flyes', 'low_cable_flyes', 'high_cable_flyes', 'pushup_variations', 'svend_press',
+      // Shoulders/Delts
+      'lateral_raise', 'front_raise', 'rear_delt_flyes', 'face_pulls', 'cable_lateral_raise', 'reverse_pec_deck', 'upright_row', 'band_pull_apart',
+    ],
+  },
+  {
+    id: 'accessory_lower',
+    name: 'Accessory (Lower Body)',
+    exerciseIds: ['lying_hamstring_curl', 'seated_hamstring_curl', 'standing_hamstring_curl', 'weighted_hip_thrust', 'weighted_glute_bridge', 'knee_extensions', 'step_ups', 'split_squats', 'walking_lunges', 'reverse_lunges', 'standing_calf_raise', 'smith_calf_raises', 'leg_press_calf_raises', 'seated_calf_raises_1', 'standing_calf_raise_2', 'smith_calf_raises_elevated', 'leg_press_calf_raises_2', 'seated_calf_raises_2', 'back_raise', 'single_leg_rdl'],
+  },
+  {
+    id: 'vanity_1',
+    name: 'Vanity lift 1 (Biceps)',
+    exerciseIds: ['preacher_curls', 'db_curl', 'hammer_curl', 'cable_curl', 'concentration_curl', 'barbell_curl', 'ez_bar_curl', 'incline_db_curl'],
+  },
+  {
+    id: 'vanity_2',
+    name: 'Vanity lift 2 (Triceps)',
+    exerciseIds: ['skullcrushers', 'overhead_extension', 'close_grip_press', 'tricep_dips', 'tricep_kickback', 'cable_overhead_extension', 'ez_bar_skullcrusher', 'diamond_pushups'],
+  },
+  {
+    id: 'vanity_3',
+    name: 'Vanity lift 3 (Triceps)',
+    exerciseIds: ['cable_extensions', 'rope_pushdown', 'single_arm_pushdown', 'reverse_grip_pushdown', 'rope_overhead_extension', 'bar_pushdown'],
+  },
+  {
+    id: 'vanity_4',
+    name: 'Vanity lift 4 (Triceps)',
+    exerciseIds: ['tricep_pulldowns', 'v_bar_pushdown', 'ez_bar_pushdown', 'dual_rope_pushdown', 'single_arm_rope_pushdown', 'tricep_pressdown'],
+  },
+  {
+    id: 'vanity_5',
+    name: 'Vanity lift 5 (Chest)',
+    exerciseIds: ['db_flyes', 'cable_flyes', 'pec_deck', 'incline_db_flyes', 'low_cable_flyes', 'high_cable_flyes', 'pushup_variations', 'svend_press'],
+  },
+  {
+    id: 'vanity_6',
+    name: 'Vanity lift 6 (Shoulders)',
+    exerciseIds: ['lateral_raise', 'front_raise', 'rear_delt_flyes', 'face_pulls', 'cable_lateral_raise', 'reverse_pec_deck', 'upright_row', 'band_pull_apart'],
+  },
+];
+
+// Program day templates define which muscle groups are needed for each day
+// Users will select specific exercises for each muscle group during setup
+export interface ProgramDayTemplate {
+  dayNumber: number;
+  dayName: string;
+  muscleGroups: Array<{
+    muscleGroupId: string;
+    targetSets: number;
+    targetReps: number;
+    optional?: boolean;
+  }>;
+}
+
+export const PROGRAM_DAY_TEMPLATES: Record<string, ProgramDayTemplate[]> = {
+  '3-day': [
+    {
+      dayNumber: 1,
+      dayName: 'Day 1',
+      muscleGroups: [
+        { muscleGroupId: 'pec_dominant', targetSets: 3, targetReps: 8 },
+        { muscleGroupId: 'upper_back_horizontal', targetSets: 3, targetReps: 8 },
+        { muscleGroupId: 'shoulder_dominant', targetSets: 3, targetReps: 8 },
+        { muscleGroupId: 'upper_back_vertical', targetSets: 3, targetReps: 8 },
+        { muscleGroupId: 'pec_dominant', targetSets: 3, targetReps: 8 },
+        { muscleGroupId: 'upper_back_horizontal', targetSets: 3, targetReps: 8 },
+        { muscleGroupId: 'vanity_1', targetSets: 3, targetReps: 8 },
+        { muscleGroupId: 'vanity_2', targetSets: 3, targetReps: 8 },
+        { muscleGroupId: 'accessory_upper', targetSets: 3, targetReps: 10, optional: true },
+        { muscleGroupId: 'accessory_upper', targetSets: 3, targetReps: 10, optional: true },
+      ],
+    },
+    {
+      dayNumber: 2,
+      dayName: 'Day 2',
+      muscleGroups: [
+        { muscleGroupId: 'knee_dominant', targetSets: 3, targetReps: 8 },
+        { muscleGroupId: 'hip_dominant', targetSets: 3, targetReps: 8 },
+        { muscleGroupId: 'knee_dominant', targetSets: 3, targetReps: 8 },
+        { muscleGroupId: 'hip_dominant', targetSets: 3, targetReps: 8 },
+        { muscleGroupId: 'quad_accessory', targetSets: 3, targetReps: 8 },
+        { muscleGroupId: 'calves_1', targetSets: 3, targetReps: 8 },
+        { muscleGroupId: 'vanity_3', targetSets: 3, targetReps: 8 },
+        { muscleGroupId: 'accessory_lower', targetSets: 3, targetReps: 10, optional: true },
+        { muscleGroupId: 'accessory_lower', targetSets: 3, targetReps: 10, optional: true },
+      ],
+    },
+    {
+      dayNumber: 3,
+      dayName: 'Day 3',
+      muscleGroups: [
+        { muscleGroupId: 'shoulder_dominant', targetSets: 3, targetReps: 8 },
+        { muscleGroupId: 'upper_back_vertical', targetSets: 3, targetReps: 8 },
+        { muscleGroupId: 'hip_accessory', targetSets: 3, targetReps: 8 },
+        { muscleGroupId: 'calves_2', targetSets: 3, targetReps: 8 },
+        { muscleGroupId: 'vanity_4', targetSets: 3, targetReps: 8 },
+        { muscleGroupId: 'vanity_5', targetSets: 3, targetReps: 8 },
+        { muscleGroupId: 'vanity_6', targetSets: 3, targetReps: 8 },
+        { muscleGroupId: 'accessory_upper', targetSets: 3, targetReps: 10, optional: true },
+        { muscleGroupId: 'accessory_upper', targetSets: 3, targetReps: 10, optional: true },
+      ],
+    },
+  ],
+  '4-day': [
+    {
+      dayNumber: 1,
+      dayName: 'Day 1',
+      muscleGroups: [
+        { muscleGroupId: 'pec_dominant', targetSets: 3, targetReps: 8 },
+        { muscleGroupId: 'upper_back_horizontal', targetSets: 3, targetReps: 8 },
+        { muscleGroupId: 'shoulder_dominant', targetSets: 3, targetReps: 8 },
+        { muscleGroupId: 'upper_back_vertical', targetSets: 3, targetReps: 8 },
+        { muscleGroupId: 'vanity_1', targetSets: 3, targetReps: 8 },
+        { muscleGroupId: 'vanity_2', targetSets: 3, targetReps: 8 },
+        { muscleGroupId: 'accessory_upper', targetSets: 3, targetReps: 10, optional: true },
+        { muscleGroupId: 'accessory_upper', targetSets: 3, targetReps: 10, optional: true },
+      ],
+    },
+    {
+      dayNumber: 2,
+      dayName: 'Day 2',
+      muscleGroups: [
+        { muscleGroupId: 'knee_dominant', targetSets: 3, targetReps: 8 },
+        { muscleGroupId: 'hip_dominant', targetSets: 3, targetReps: 8 },
+        { muscleGroupId: 'quad_accessory', targetSets: 3, targetReps: 8 },
+        { muscleGroupId: 'calves_1', targetSets: 3, targetReps: 8 },
+        { muscleGroupId: 'vanity_3', targetSets: 3, targetReps: 8 },
+        { muscleGroupId: 'accessory_lower', targetSets: 3, targetReps: 10, optional: true },
+        { muscleGroupId: 'accessory_lower', targetSets: 3, targetReps: 10, optional: true },
+      ],
+    },
+    {
+      dayNumber: 3,
+      dayName: 'Day 3',
+      muscleGroups: [
+        { muscleGroupId: 'shoulder_dominant', targetSets: 3, targetReps: 8 },
+        { muscleGroupId: 'upper_back_vertical', targetSets: 3, targetReps: 8 },
+        { muscleGroupId: 'pec_dominant', targetSets: 3, targetReps: 8 },
+        { muscleGroupId: 'upper_back_horizontal', targetSets: 3, targetReps: 8 },
+        { muscleGroupId: 'vanity_4', targetSets: 3, targetReps: 8 },
+        { muscleGroupId: 'vanity_5', targetSets: 3, targetReps: 8 },
+        { muscleGroupId: 'accessory_upper', targetSets: 3, targetReps: 10, optional: true },
+        { muscleGroupId: 'accessory_upper', targetSets: 3, targetReps: 10, optional: true },
+      ],
+    },
+    {
+      dayNumber: 4,
+      dayName: 'Day 4',
+      muscleGroups: [
+        { muscleGroupId: 'hip_dominant', targetSets: 3, targetReps: 8 },
+        { muscleGroupId: 'knee_dominant', targetSets: 3, targetReps: 8 },
+        { muscleGroupId: 'hip_accessory', targetSets: 3, targetReps: 8 },
+        { muscleGroupId: 'calves_2', targetSets: 3, targetReps: 8 },
+        { muscleGroupId: 'vanity_6', targetSets: 3, targetReps: 8 },
+        { muscleGroupId: 'accessory_lower', targetSets: 3, targetReps: 10, optional: true },
+        { muscleGroupId: 'accessory_lower', targetSets: 3, targetReps: 10, optional: true },
+      ],
+    },
+  ],
+  '5-day': [
+    {
+      dayNumber: 1,
+      dayName: 'Day 1',
+      muscleGroups: [
+        { muscleGroupId: 'pec_dominant', targetSets: 3, targetReps: 8 },
+        { muscleGroupId: 'upper_back_horizontal', targetSets: 3, targetReps: 8 },
+        { muscleGroupId: 'shoulder_dominant', targetSets: 3, targetReps: 8 },
+        { muscleGroupId: 'upper_back_vertical', targetSets: 3, targetReps: 8 },
+        { muscleGroupId: 'accessory_upper', targetSets: 3, targetReps: 10, optional: true },
+        { muscleGroupId: 'accessory_upper', targetSets: 3, targetReps: 10, optional: true },
+      ],
+    },
+    {
+      dayNumber: 2,
+      dayName: 'Day 2',
+      muscleGroups: [
+        { muscleGroupId: 'knee_dominant', targetSets: 3, targetReps: 8 },
+        { muscleGroupId: 'hip_dominant', targetSets: 3, targetReps: 8 },
+        { muscleGroupId: 'quad_accessory', targetSets: 3, targetReps: 8 },
+        { muscleGroupId: 'calves_1', targetSets: 3, targetReps: 8 },
+        { muscleGroupId: 'accessory_lower', targetSets: 3, targetReps: 10, optional: true },
+        { muscleGroupId: 'accessory_lower', targetSets: 3, targetReps: 10, optional: true },
+      ],
+    },
+    {
+      dayNumber: 3,
+      dayName: 'Day 3',
+      muscleGroups: [
+        { muscleGroupId: 'shoulder_dominant', targetSets: 3, targetReps: 8 },
+        { muscleGroupId: 'upper_back_vertical', targetSets: 3, targetReps: 8 },
+        { muscleGroupId: 'pec_dominant', targetSets: 3, targetReps: 8 },
+        { muscleGroupId: 'upper_back_horizontal', targetSets: 3, targetReps: 8 },
+        { muscleGroupId: 'accessory_upper', targetSets: 3, targetReps: 10, optional: true },
+        { muscleGroupId: 'accessory_upper', targetSets: 3, targetReps: 10, optional: true },
+      ],
+    },
+    {
+      dayNumber: 4,
+      dayName: 'Day 4',
+      muscleGroups: [
+        { muscleGroupId: 'hip_dominant', targetSets: 3, targetReps: 8 },
+        { muscleGroupId: 'knee_dominant', targetSets: 3, targetReps: 8 },
+        { muscleGroupId: 'hip_accessory', targetSets: 3, targetReps: 8 },
+        { muscleGroupId: 'calves_2', targetSets: 3, targetReps: 8 },
+        { muscleGroupId: 'accessory_lower', targetSets: 3, targetReps: 10, optional: true },
+        { muscleGroupId: 'accessory_lower', targetSets: 3, targetReps: 10, optional: true },
+      ],
+    },
+    {
+      dayNumber: 5,
+      dayName: 'Day 5',
+      muscleGroups: [
+        { muscleGroupId: 'vanity_1', targetSets: 3, targetReps: 8 },
+        { muscleGroupId: 'vanity_2', targetSets: 3, targetReps: 8 },
+        { muscleGroupId: 'vanity_3', targetSets: 3, targetReps: 8 },
+        { muscleGroupId: 'vanity_4', targetSets: 3, targetReps: 8 },
+        { muscleGroupId: 'vanity_5', targetSets: 3, targetReps: 8 },
+        { muscleGroupId: 'vanity_6', targetSets: 3, targetReps: 8 },
+        { muscleGroupId: 'accessory_upper', targetSets: 3, targetReps: 10, optional: true },
+        { muscleGroupId: 'accessory_upper', targetSets: 3, targetReps: 10, optional: true },
+        { muscleGroupId: 'accessory_upper', targetSets: 3, targetReps: 10, optional: true },
+      ],
+    },
+  ],
+};
+
+
