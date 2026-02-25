@@ -147,9 +147,7 @@ android {
         jniLibs {
             useLegacyPackaging (findProperty('expo.useLegacyPackaging')?.toBoolean() ?: false)
         }
-    }exp://127.0.0.1:8081
-
-
+    }
 }
 
 // Apply static values from `gradle.properties` to the `android.packagingOptions`

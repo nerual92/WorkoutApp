@@ -202,7 +202,7 @@ export default function ProgramSetup({ onProgramCreated }: ProgramSetupProps) {
 
                     return (
                       <tr key={`slot-${slotIndex}`}>
-                        <td>
+                        <td data-label="Exercise">
                           <select
                             value={selectedExerciseId || ''}
                             onChange={(e) => handleExerciseChange(slotIndex, e.target.value)}
@@ -215,8 +215,8 @@ export default function ProgramSetup({ onProgramCreated }: ProgramSetupProps) {
                             ))}
                           </select>
                         </td>
-                        <td className="muscle-group-name">{muscleGroup.name}</td>
-                        <td className="target-info">{mg.targetSets} × {mg.targetReps}</td>
+                        <td data-label="Muscle Group" className="muscle-group-name">{muscleGroup.name}</td>
+                        <td data-label="Target" className="target-info">{mg.targetSets} × {mg.targetReps}</td>
                       </tr>
                     );
                   })}
@@ -253,7 +253,7 @@ export default function ProgramSetup({ onProgramCreated }: ProgramSetupProps) {
 
                         return (
                           <tr key={`slot-${slotIndex}-optional`}>
-                            <td>
+                            <td data-label="Exercise">
                               <select
                                 value={selectedExerciseId || 'skip'}
                                 onChange={(e) => handleExerciseChange(slotIndex, e.target.value)}
@@ -267,8 +267,8 @@ export default function ProgramSetup({ onProgramCreated }: ProgramSetupProps) {
                                 ))}
                               </select>
                             </td>
-                            <td className="muscle-group-name optional-label">{muscleGroup.name}</td>
-                            <td className="target-info">{mg.targetSets} × {mg.targetReps}</td>
+                            <td data-label="Muscle Group" className="muscle-group-name optional-label">{muscleGroup.name}</td>
+                            <td data-label="Target" className="target-info">{mg.targetSets} × {mg.targetReps}</td>
                           </tr>
                         );
                       })}
