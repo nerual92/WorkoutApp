@@ -55,7 +55,9 @@ function App() {
 
   // Listen to auth state
   useEffect(() => {
+    console.log('🔐 APP.TSX: Setting up auth listener');
     const unsub = onAuthChange((user) => {
+      console.log('🔐 AUTH STATE CHANGED:', user ? `Logged in as ${user.email} (ID: ${user.id})` : 'Not logged in');
       setAuthUser(user);
       setAuthChecked(true);
     });
@@ -67,14 +69,17 @@ function App() {
     if (!authUser) {
       // Cleanup Firestore subscription
       if (firestoreUnsubRef.current) {
+        console.log('☁️ Unsubscribing from Supabase (no auth user)');
         firestoreUnsubRef.current();
         firestoreUnsubRef.current = null;
       }
       return;
     }
 
+    console.log('☁️ Subscribing to Supabase program changes for user:', authUser.id);
     // Subscribe to real-time program changes
     firestoreUnsubRef.current = subscribeToProgramChanges(authUser.id, (program) => {
+      console.log('☁️ Received remote program update from Supabase');
       isRemoteUpdate.current = true;
       if (program) {
         setUserProgram(program);
@@ -125,9 +130,23 @@ function App() {
         console.error('Failed to save to localStorage:', error);
         // Storage quota exceeded or disabled - data will not persist
       }
-      // Sync to Firestore if authenticated and this isn't a remote update
+      
+      // Sync to Supabase if authenticated and this isn't a remote update
+      console.log('  Auth check:', {
+        hasAuthUser: !!authUser,
+        authUserId: authUser?.id,
+        isRemoteUpdate: isRemoteUpdate.current
+      });
+      
       if (authUser && !isRemoteUpdate.current) {
-        saveUserProgram(authUser.id, userProgram).catch(console.error);
+        console.log('  ☁️ Saving to Supabase...');
+        saveUserProgram(authUser.id, userProgram)
+          .then(() => console.log('  ✅ Saved to Supabase'))
+          .catch(err => console.error('  ❌ Supabase save failed:', err));
+      } else if (!authUser) {
+        console.log('  ⚠️ Skipping Supabase save - not authenticated');
+      } else if (isRemoteUpdate.current) {
+        console.log('  ⚠️ Skipping Supabase save - this IS a remote update');
       }
     }
   }, [userProgram, authUser]);
