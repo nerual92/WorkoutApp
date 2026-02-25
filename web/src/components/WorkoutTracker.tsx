@@ -160,11 +160,29 @@ export default function WorkoutTracker({ program, onUpdate, dayOverride, onCompl
   const prevExerciseIndexRef = React.useRef(currentExerciseIndex);
   const prevExerciseIdRef = React.useRef<string | null>(null);
   
+  // Separate effect to populate weight input when exercise changes
+  React.useEffect(() => {
+    if (currentExercise) {
+      const exerciseChanged = prevExerciseIndexRef.current !== currentExerciseIndex || 
+                              prevExerciseIdRef.current !== currentExercise.exerciseId;
+      
+      if (exerciseChanged) {
+        console.log('🏋️ Exercise changed to:', currentExercise.exerciseId, 'lastWeight:', lastWeight);
+        if (lastWeight !== null) {
+          console.log('  → Setting weight input to:', lastWeight);
+          setWeightInput(lastWeight.toString());
+        } else {
+          console.log('  → No last weight, clearing input');
+          setWeightInput('');
+        }
+      }
+    }
+  }, [currentExerciseIndex, currentExercise?.exerciseId, lastWeight]);
+  
   React.useEffect(() => {
     if (currentExercise) {
       const actualReps = weekProgression.reps;
-      const exerciseChanged = prevExerciseIndexRef.current !== currentExerciseIndex || 
-                              prevExerciseIdRef.current !== currentExercise.exerciseId;
+      
       prevExerciseIndexRef.current = currentExerciseIndex;
       prevExerciseIdRef.current = currentExercise.exerciseId;
 
@@ -177,19 +195,9 @@ export default function WorkoutTracker({ program, onUpdate, dayOverride, onCompl
         weight: 0,
       });
       
-      // Only reset weight input when switching exercises, not after every set
-      if (exerciseChanged) {
-        console.log('🏋️ Exercise changed, setting weight input to lastWeight:', lastWeight);
-        if (lastWeight !== null) {
-          setWeightInput(lastWeight.toString());
-        } else {
-          setWeightInput('');
-        }
-      }
-      
       setRepsLocked(true);
     }
-  }, [currentExerciseIndex, currentExercise, weekProgression.reps, currentSets, lastWeight]);
+  }, [currentExerciseIndex, currentExercise, weekProgression.reps, currentSets]);
 
   // Rest timer countdown
   React.useEffect(() => {
