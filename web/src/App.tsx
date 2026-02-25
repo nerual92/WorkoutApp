@@ -82,17 +82,22 @@ function App() {
     // Subscribe to real-time program changes
     firestoreUnsubRef.current = subscribeToProgramChanges(authUser.id, (program) => {
       console.log('☁️ Received remote program update from Supabase');
-      isRemoteUpdate.current = true;
       if (program) {
+        // Mark this data as already saved to prevent re-saving
+        const programJson = JSON.stringify(program);
+        lastSavedToSupabase.current = programJson;
+        
+        // Set flag to prevent save useEffect from running during this update
+        isRemoteUpdate.current = true;
         setUserProgram(program);
         setCurrentView(prev => prev === 'setup' ? 'home' : prev);
-        localStorage.setItem('userProgram', JSON.stringify(program));
-      }
-      // Keep the flag true through the next render cycle to prevent re-saving
-      setTimeout(() => {
+        localStorage.setItem('userProgram', programJson);
+        
+        // Clear flag immediately after state update is queued
+        // The lastSavedToSupabase ref will handle deduplication
         isRemoteUpdate.current = false;
-        console.log('☁️ Remote update flag cleared');
-      }, 100);
+        console.log('☁️ Remote update processed, flag cleared');
+      }
     });
 
     return () => {
@@ -144,7 +149,7 @@ function App() {
         isRemoteUpdate: isRemoteUpdate.current
       });
       
-      if (authUser && !isRemoteUpdate.current) {
+      if (authUser) {
         const currentData = JSON.stringify(userProgram);
         const lastSaved = lastSavedToSupabase.current;
         
@@ -156,23 +161,20 @@ function App() {
         // Only save if data actually changed
         if (currentData !== lastSavedToSupabase.current) {
           console.log('  ☁️ Data changed - saving to Supabase...');
+          // Set BEFORE async save to prevent race conditions
           lastSavedToSupabase.current = currentData;
           saveUserProgram(authUser.id, userProgram)
-            .then(() => console.log('  ✅ Saved to Supabase'))
+            .then(() => console.log('  ✅ Saved to Supabase successfully'))
             .catch(err => {
               console.error('  ❌ Supabase save failed:', err);
               // Reset so we can retry
-              lastSavedToSupabase.current = null;
+              lastSavedToSupabase.current = lastSaved;
             });
         } else {
-          console.log('  ⏭️ Data unchanged - skipping Supabase save');
+          console.log('  ⏭️ Data unchanged - skipping Supabase save (deduplication)');
         }
-      } else if (!authUser) {
+      } else {
         console.log('  ⚠️ Skipping Supabase save - not authenticated');
-      } else if (isRemoteUpdate.current) {
-        console.log('  ⚠️ Skipping Supabase save - this IS a remote update');
-        // Update the lastSaved ref so we don't re-save this data later
-        lastSavedToSupabase.current = JSON.stringify(userProgram);
       }
     }
   }, [userProgram, authUser]);
