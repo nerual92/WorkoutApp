@@ -122,13 +122,13 @@ export function calculateNextProgression(completedAllSets, currentSets, currentR
  */
 export function getDefaultProgressionConfig(isCompound = true) {
     if (isCompound) {
-        // Main compound lifts: 3 sets → 5 sets, 6 reps → 12 reps
+        // Main compound lifts: 3 sets → 4 sets, 6 reps → 10 reps
         return {
             startingSets: 3,
-            maxSets: 5,
+            maxSets: 4,
             setIncrement: 1,
             startingReps: 6,
-            maxReps: 12,
+            maxReps: 10,
             repIncrement: 1,
             weightIncreasePercent: 0.025, // 2.5% increase
             weightIncreaseMin: 5, // Minimum 5 lbs increase
