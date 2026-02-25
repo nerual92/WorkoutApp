@@ -134,7 +134,7 @@
   .mobile-topbar {
     display: flex; align-items: center; gap: 0.75rem;
     background: var(--color-surface); color: var(--color-text);
-    padding: 1rem 1.25rem; position: sticky; top: 0; z-index: 150;
+    padding: 1rem 1.25rem; position: sticky; top: 0; z-index: 100;
     border-bottom: 1px solid var(--color-border);
   }
   .mobile-menu-btn {
