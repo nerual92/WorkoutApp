@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import type { UserProgram, WorkoutSet, WorkoutSession, AuthUser } from 'workout-shared';
 import { EXERCISES } from 'workout-shared';
-import { generateId, getTodayISO, getWeekProgression, getLastWeightForExercise, saveWorkoutSession } from 'workout-shared';
+import { generateId, getTodayISO, getWeekProgression, getLastWeightForExercise, saveWorkoutSession, calculateNextProgression, getDefaultProgressionConfig } from 'workout-shared';
 import { Check, Lock, ChevronLeft, ChevronRight, SkipForward } from 'lucide-react';
 import { useToast } from '../App';
 import ConfirmModal from './ConfirmModal';
@@ -309,6 +309,58 @@ export default function WorkoutTracker({ program, onUpdate, dayOverride, onCompl
     } else {
       console.warn('⚠️ Not saving individual session - user not authenticated');
     }
+
+    // 📊 CALCULATE DYNAMIC PROGRESSION
+    // Analyze each exercise to determine if all prescribed sets were completed
+    console.log('\n📊 ===== DYNAMIC PROGRESSION ANALYSIS =====');
+    currentDay.exercises.forEach((programEx, exIdx) => {
+      const exerciseInfo = EXERCISES.find(e => e.id === programEx.exerciseId);
+      const isCompound = exerciseInfo?.category === 'Compound';
+      
+      // Get sets completed for this exercise
+      const setsCompleted = currentSets.filter(s => 
+        s.exerciseId === programEx.exerciseId && 
+        (s.slotIndex === undefined || s.slotIndex === exIdx)
+      );
+      
+      const targetSets = weekProgression.sets;
+      const targetReps = weekProgression.reps;
+      const allSetsCompleted = setsCompleted.length >= targetSets &&
+        setsCompleted.every(s => s.reps >= targetReps);
+      
+      // Get current weight (use last weight from this session)
+      const weights = setsCompleted.map(s => s.weight);
+      const currentWeight = weights.length > 0 ? Math.max(...weights) : 0;
+      
+      // Get progression config
+      const config = getDefaultProgressionConfig(isCompound);
+      
+      // Calculate next progression
+      if (currentWeight > 0) {
+        const nextProgression = calculateNextProgression(
+          allSetsCompleted,
+          targetSets,
+          targetReps,
+          currentWeight,
+          config,
+          exerciseInfo?.type === 'dumbbell' ? 2.5 : 5
+        );
+        
+        console.log(`\n🏋️ ${exerciseInfo?.name || programEx.exerciseId}:`);
+        console.log(`  Current: ${targetSets} sets × ${targetReps} reps @ ${currentWeight}lbs`);
+        console.log(`  Completed: ${setsCompleted.length} sets (${allSetsCompleted ? '✅ All prescribed sets' : '⚠️ Incomplete'})`);
+        console.log(`  Next: ${nextProgression.sets} sets × ${nextProgression.reps} reps @ ${nextProgression.weight}lbs`);
+        
+        if (nextProgression.weight > currentWeight) {
+          console.log(`  🎉 WEIGHT INCREASE: +${(nextProgression.weight - currentWeight).toFixed(1)}lbs`);
+        } else if (nextProgression.sets > targetSets) {
+          console.log(`  📈 SETS INCREASE: +${nextProgression.sets - targetSets} set(s)`);
+        } else if (nextProgression.reps > targetReps) {
+          console.log(`  📈 REPS INCREASE: +${nextProgression.reps - targetReps} rep(s)`);
+        }
+      }
+    });
+    console.log('===== END PROGRESSION ANALYSIS =====\n');
 
     // Advance the "next up" day pointer
     // If they completed the current "next" day, advance it

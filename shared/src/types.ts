@@ -29,11 +29,25 @@ export interface WorkoutSession {
   notes?: string;
 }
 
+export interface ProgressionConfig {
+  startingSets: number;
+  maxSets: number;
+  setIncrement: number; // Usually 1
+  startingReps: number;
+  maxReps: number;
+  repIncrement: number;
+  weightIncreasePercent: number; // e.g., 0.025 for 2.5%
+  weightIncreaseMin: number; // Minimum weight increase (e.g., 2.5 or 5 lbs)
+}
+
 export interface ProgramExercise {
   exerciseId: string;
   targetSets: number;
   targetReps: number;
   targetRPE?: number; // Optional RPE/intensity
+  progressionConfig?: ProgressionConfig; // For dynamic progression
+  currentSets?: number; // Current week's sets
+  currentReps?: number; // Current week's reps
 }
 
 export interface ProgramDay {

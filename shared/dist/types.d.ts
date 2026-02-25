@@ -23,11 +23,24 @@ export interface WorkoutSession {
     completed: boolean;
     notes?: string;
 }
+export interface ProgressionConfig {
+    startingSets: number;
+    maxSets: number;
+    setIncrement: number;
+    startingReps: number;
+    maxReps: number;
+    repIncrement: number;
+    weightIncreasePercent: number;
+    weightIncreaseMin: number;
+}
 export interface ProgramExercise {
     exerciseId: string;
     targetSets: number;
     targetReps: number;
     targetRPE?: number;
+    progressionConfig?: ProgressionConfig;
+    currentSets?: number;
+    currentReps?: number;
 }
 export interface ProgramDay {
     dayNumber: number;
