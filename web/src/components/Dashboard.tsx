@@ -12,6 +12,11 @@ interface DashboardProps {
 }
 
 export default function Dashboard({ program, onStartWorkout, onViewAnalytics }: DashboardProps) {
+  console.log('📊 DASHBOARD: Rendering');
+  console.log('  Workouts Done:', program.workoutSessions.length);
+  console.log('  Current Week:', program.currentWeek);
+  console.log('  Current Day:', program.currentDay);
+  
   const weekProgression = getWeekProgression(program.currentWeek);
   const lastSession = program.workoutSessions.length > 0
     ? program.workoutSessions[program.workoutSessions.length - 1]

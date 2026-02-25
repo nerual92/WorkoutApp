@@ -262,6 +262,10 @@ export default function WorkoutTracker({ program, onUpdate, dayOverride, onCompl
   const confirmCompleteWorkout = () => {
     setShowCompleteConfirm(false);
     
+    console.log('🏋️ WORKOUT TRACKER: Starting confirmCompleteWorkout');
+    console.log('  Current sessions count:', program.workoutSessions.length);
+    console.log('  Current sets to save:', currentSets.length);
+    
     const session: WorkoutSession = {
       id: generateId(),
       date: getTodayISO(),
@@ -288,6 +292,10 @@ export default function WorkoutTracker({ program, onUpdate, dayOverride, onCompl
       currentWeek: nextWeek,
     };
 
+    console.log('🏋️ WORKOUT TRACKER: Created updated program');
+    console.log('  NEW sessions count:', updated.workoutSessions.length);
+    console.log('  Calling onUpdate with new data');
+    
     onUpdate(updated);
     setCurrentSets([]);
     setCurrentExerciseIndex(0);

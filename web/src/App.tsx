@@ -113,8 +113,14 @@ function App() {
   // Save program to localStorage and Firestore whenever it changes
   useEffect(() => {
     if (userProgram) {
+      console.log('📱 APP.TSX: userProgram changed, saving...');
+      console.log('  Sessions count:', userProgram.workoutSessions.length);
+      console.log('  Current day:', userProgram.currentDay);
+      console.log('  Current week:', userProgram.currentWeek);
+      
       try {
         localStorage.setItem('userProgram', JSON.stringify(userProgram));
+        console.log('  ✅ Saved to localStorage');
       } catch (error) {
         console.error('Failed to save to localStorage:', error);
         // Storage quota exceeded or disabled - data will not persist
