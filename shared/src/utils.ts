@@ -49,6 +49,8 @@ export function getLastWeightForExercise(
   exerciseId: string,
   sessions: WorkoutSession[]
 ): number | null {
+  console.log('🔎 getLastWeightForExercise:', exerciseId, 'in', sessions.length, 'sessions');
+  
   // Sort sessions by date descending to get most recent first
   const sortedSessions = [...sessions].sort((a, b) => 
     b.date.localeCompare(a.date)
@@ -58,9 +60,12 @@ export function getLastWeightForExercise(
     const exerciseSets = session.sets.filter(s => s.exerciseId === exerciseId);
     if (exerciseSets.length > 0) {
       // Return the max weight from the most recent session with this exercise
-      return Math.max(...exerciseSets.map(s => s.weight));
+      const maxWeight = Math.max(...exerciseSets.map(s => s.weight));
+      console.log('  ✅ Found weight:', maxWeight, 'from session on', session.date, 'with', exerciseSets.length, 'sets');
+      return maxWeight;
     }
   }
   
+  console.log('  ❌ No previous weight found for', exerciseId);
   return null;
 }

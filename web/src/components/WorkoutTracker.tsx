@@ -132,9 +132,27 @@ export default function WorkoutTracker({ program, onUpdate, dayOverride, onCompl
   // Get last weight for this exercise (search current + archived sessions)
   const allSessions = React.useMemo(() => {
     const archived = (program.programHistory || []).flatMap(h => h.sessions);
-    return [...program.workoutSessions, ...archived];
-  }, [program.workoutSessions, program.programHistory]);
+    const all = [...program.workoutSessions, ...archived];
+    console.log('🔍 WorkoutTracker: allSessions calculated', {
+      current: program.workoutSessions.length,
+      archived: archived.length,
+      total: all.length,
+      activeDayNumber,
+      currentExercise: currentExercise?.exerciseId
+    });
+    return all;
+  }, [program.workoutSessions, program.programHistory, activeDayNumber, currentExercise?.exerciseId]);
+  
   const lastWeight = currentExercise ? getLastWeightForExercise(currentExercise.exerciseId, allSessions) : null;
+  
+  React.useEffect(() => {
+    console.log('💪 Last weight for', currentExercise?.exerciseId, '=', lastWeight, {
+      sessionsChecked: allSessions.length,
+      sessionsWithExercise: allSessions.filter(s => 
+        s.sets.some(set => set.exerciseId === currentExercise?.exerciseId)
+      ).length
+    });
+  }, [currentExercise?.exerciseId, lastWeight, allSessions]);
 
   const [currentSet, setCurrentSet] = useState<WorkoutSet>({
     exerciseId: currentExercise?.exerciseId || '',
