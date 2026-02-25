@@ -132,6 +132,138 @@
   padding: 0.2rem 0.6rem; border-radius: 999px;
 }
 .history-chevron { color: var(--color-text-tertiary); font-size: 0.7rem; }
+
+@media (max-width: 768px) {
+  .analytics h2 { font-size: 1.5rem; }
+  
+  .analytics-program-picker { 
+    flex-direction: column;
+    align-items: stretch;
+    padding: 1rem;
+  }
+  .analytics-program-picker label { font-size: 0.9rem; }
+  .program-picker-select { 
+    padding: 0.75rem 0.85rem;
+    font-size: 0.95rem;
+    min-height: 48px;
+  }
+  
+  .analytics-tabs { 
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-bottom: 1.5rem;
+  }
+  .tab-btn { 
+    padding: 0.85rem 1.25rem;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    min-height: 44px;
+  }
+  
+  .stats-summary { 
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+  }
+  .stat-card { padding: 1.25rem; }
+  .stat-label { font-size: 0.85rem; }
+  .stat-value { font-size: 1.75rem; }
+  
+  /* Make stats table mobile-friendly */
+  .table-header { display: none; }
+  .table-row {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+    padding: 1rem;
+  }
+  .col-exercise,
+  .col-sets,
+  .col-weight,
+  .col-volume {
+    display: flex;
+    justify-content: space-between;
+    text-align: left;
+  }
+  .col-exercise::before { content: 'Exercise'; }
+  .col-sets::before { content: 'Sets'; }
+  .col-weight::before { content: 'Best Weight'; }
+  .col-volume::before { content: 'Volume'; }
+  .col-sets::before,
+  .col-weight::before,
+  .col-volume::before {
+    font-weight: 700;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-text-tertiary);
+  }
+  
+  .history-card-header { 
+    padding: 1.25rem;
+    flex-wrap: wrap;
+  }
+  .history-card-left { 
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  .history-date { font-size: 0.95rem; }
+  .history-day { font-size: 0.85rem; }
+  .history-sets { font-size: 0.85rem; }
+  .history-detail { padding: 0 1.25rem 1.25rem; }
+  .history-exercise { padding: 0.85rem 0; }
+  .history-exercise-name { font-size: 0.95rem; }
+  .history-set-badge { font-size: 0.85rem; }
+  
+  /* Trend mobile styles */
+  .trend-summary-cards { 
+    grid-template-columns: 1fr; 
+    gap: 0.75rem;
+  }
+  .trend-card { padding: 1.25rem; }
+  .trend-card-label { font-size: 0.75rem; }
+  .trend-card-value { font-size: 1.5rem; }
+  
+  .chart-bars { 
+    height: 150px; 
+    gap: 0.3rem;
+  }
+  .chart-bar-wrapper { min-width: 32px; }
+  
+  .trend-table-header { display: none; }
+  .trend-table-row { 
+    grid-template-columns: 1fr; 
+    gap: 0.35rem;
+    padding: 0.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    margin-bottom: 0.5rem;
+  }
+  .trend-table-row span {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.25rem 0;
+  }
+  .trend-table-row span::before {
+    font-weight: 700;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-text-tertiary);
+  }
+  .trend-table-row span:nth-child(1)::before { content: 'Date'; }
+  .trend-table-row span:nth-child(2)::before { content: 'Day'; }
+  .trend-table-row span:nth-child(3)::before { content: 'Sets × Reps'; }
+  .trend-table-row span:nth-child(4)::before { content: 'Max Weight'; }
+  .trend-table-row span:nth-child(5)::before { content: 'Volume'; }
+  
+  .past-program-restore-btn {
+    padding: 0.65rem 1.1rem;
+    font-size: 0.85rem;
+    min-height: 44px;
+  }
+}
 .history-detail { padding: 0 1.25rem 1rem; border-top: 1px solid var(--color-border); }
 .history-exercise {
   padding: 0.65rem 0;
@@ -286,14 +418,3 @@
   color: var(--color-primary-bright);
 }
 .past-program-restore-btn:focus-visible { outline: 2px solid var(--color-primary-bright); outline-offset: 2px; }
-
-@media (max-width: 768px) {
-  .stats-summary { grid-template-columns: 1fr; }
-  .table-header, .table-row { grid-template-columns: 2fr 1fr 1fr; font-size: 0.82rem; }
-  .col-volume { display: none; }
-  .trend-summary-cards { grid-template-columns: 1fr; }
-  .trend-table-header, .trend-table-row { grid-template-columns: 1.5fr 1fr 1fr 1fr; font-size: 0.78rem; }
-  .trend-table-header span:last-child, .trend-table-row span:last-child { display: none; }
-  .chart-bars { height: 150px; }
-  .chart-bar-wrapper { min-width: 32px; }
-}

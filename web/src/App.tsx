@@ -94,20 +94,31 @@ function App() {
 
   // Load program from localStorage on mount
   useEffect(() => {
-    const saved = localStorage.getItem('userProgram');
-    if (saved) {
-      setUserProgram(JSON.parse(saved));
-      setCurrentView('home');
-    } else {
-      // Clean up orphaned pendingArchive if user refreshed mid-setup
-      localStorage.removeItem('pendingArchive');
+    try {
+      const saved = localStorage.getItem('userProgram');
+      if (saved) {
+        setUserProgram(JSON.parse(saved));
+        setCurrentView('home');
+      } else {
+        // Clean up orphaned pendingArchive if user refreshed mid-setup
+        localStorage.removeItem('pendingArchive');
+      }
+    } catch (error) {
+      console.error('Failed to load from localStorage:', error);
+      // localStorage may be disabled or corrupted - start fresh
+      localStorage.removeItem('userProgram');
     }
   }, []);
 
   // Save program to localStorage and Firestore whenever it changes
   useEffect(() => {
     if (userProgram) {
-      localStorage.setItem('userProgram', JSON.stringify(userProgram));
+      try {
+        localStorage.setItem('userProgram', JSON.stringify(userProgram));
+      } catch (error) {
+        console.error('Failed to save to localStorage:', error);
+        // Storage quota exceeded or disabled - data will not persist
+      }
       // Sync to Firestore if authenticated and this isn't a remote update
       if (authUser && !isRemoteUpdate.current) {
         saveUserProgram(authUser.id, userProgram).catch(console.error);

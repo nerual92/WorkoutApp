@@ -76,10 +76,18 @@ button {
   color: var(--color-text);
   cursor: pointer;
   transition: all 0.2s ease;
+  min-height: 44px;
 }
 button:focus-visible {
   outline: 2px solid var(--color-primary-bright);
   outline-offset: 2px;
+}
+
+@media (max-width: 768px) {
+  button {
+    padding: 0.75em 1.3em;
+    font-size: 1.05em;
+  }
 }
 
 ::-webkit-scrollbar { width: 6px; }
