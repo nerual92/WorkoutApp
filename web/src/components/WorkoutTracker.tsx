@@ -136,23 +136,17 @@ export default function WorkoutTracker({ program, onUpdate, dayOverride, onCompl
     console.log('🔍 WorkoutTracker: allSessions calculated', {
       current: program.workoutSessions.length,
       archived: archived.length,
-      total: all.length,
-      activeDayNumber,
-      currentExercise: currentExercise?.exerciseId
+      total: all.length
     });
     return all;
-  }, [program.workoutSessions, program.programHistory, activeDayNumber, currentExercise?.exerciseId]);
+  }, [program.workoutSessions, program.programHistory]);
   
-  const lastWeight = currentExercise ? getLastWeightForExercise(currentExercise.exerciseId, allSessions) : null;
-  
-  React.useEffect(() => {
-    console.log('💪 Last weight for', currentExercise?.exerciseId, '=', lastWeight, {
-      sessionsChecked: allSessions.length,
-      sessionsWithExercise: allSessions.filter(s => 
-        s.sets.some(set => set.exerciseId === currentExercise?.exerciseId)
-      ).length
-    });
-  }, [currentExercise?.exerciseId, lastWeight, allSessions]);
+  const lastWeight = React.useMemo(() => {
+    if (!currentExercise) return null;
+    const weight = getLastWeightForExercise(currentExercise.exerciseId, allSessions);
+    console.log('💪 Last weight for', currentExercise.exerciseId, '=', weight);
+    return weight;
+  }, [currentExercise?.exerciseId, allSessions]);
 
   const [currentSet, setCurrentSet] = useState<WorkoutSet>({
     exerciseId: currentExercise?.exerciseId || '',
@@ -164,11 +158,15 @@ export default function WorkoutTracker({ program, onUpdate, dayOverride, onCompl
 
   // Update current set when exercise changes
   const prevExerciseIndexRef = React.useRef(currentExerciseIndex);
+  const prevExerciseIdRef = React.useRef<string | null>(null);
+  
   React.useEffect(() => {
     if (currentExercise) {
       const actualReps = weekProgression.reps;
-      const exerciseChanged = prevExerciseIndexRef.current !== currentExerciseIndex;
+      const exerciseChanged = prevExerciseIndexRef.current !== currentExerciseIndex || 
+                              prevExerciseIdRef.current !== currentExercise.exerciseId;
       prevExerciseIndexRef.current = currentExerciseIndex;
+      prevExerciseIdRef.current = currentExercise.exerciseId;
 
       setCurrentSet({
         exerciseId: currentExercise.exerciseId,
@@ -181,6 +179,7 @@ export default function WorkoutTracker({ program, onUpdate, dayOverride, onCompl
       
       // Only reset weight input when switching exercises, not after every set
       if (exerciseChanged) {
+        console.log('🏋️ Exercise changed, setting weight input to lastWeight:', lastWeight);
         if (lastWeight !== null) {
           setWeightInput(lastWeight.toString());
         } else {
@@ -190,7 +189,7 @@ export default function WorkoutTracker({ program, onUpdate, dayOverride, onCompl
       
       setRepsLocked(true);
     }
-  }, [currentExerciseIndex, currentExercise, lastWeight, weekProgression.reps, currentSets]);
+  }, [currentExerciseIndex, currentExercise, weekProgression.reps, currentSets, lastWeight]);
 
   // Rest timer countdown
   React.useEffect(() => {
