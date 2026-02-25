@@ -7,6 +7,13 @@ import type { RealtimeChannel } from '@supabase/supabase-js';
  * Uses upsert on the user_programs table.
  */
 export async function saveUserProgram(uid: string, program: UserProgram): Promise<void> {
+  console.log('🗄️ saveUserProgram called:', {
+    uid,
+    sessionsCount: program.workoutSessions.length,
+    currentDay: program.currentDay,
+    currentWeek: program.currentWeek
+  });
+  
   const { error } = await supabase
     .from('user_programs')
     .upsert({
@@ -19,6 +26,8 @@ export async function saveUserProgram(uid: string, program: UserProgram): Promis
     console.error('Failed to save program:', error);
     throw error;
   }
+  
+  console.log('🗄️ saveUserProgram success');
 }
 
 /**
@@ -62,11 +71,19 @@ export function subscribeToProgramChanges(
       }
       if (data?.program_data) {
         try {
-          callback(JSON.parse(data.program_data));
-        } catch {
+          const program = JSON.parse(data.program_data);
+          console.log('📥 Fetched initial program from Supabase:', {
+            sessionsCount: program.workoutSessions?.length || 0,
+            currentDay: program.currentDay,
+            currentWeek: program.currentWeek
+          });
+          callback(program);
+        } catch (err) {
+          console.error('Failed to parse program data:', err);
           callback(null);
         }
       } else {
+        console.log('📥 No program data in Supabase');
         callback(null);
       }
     });
@@ -83,14 +100,23 @@ export function subscribeToProgramChanges(
         filter: `user_id=eq.${uid}`,
       },
       (payload: any) => {
+        console.log('📡 Real-time update from Supabase:', payload.eventType);
         const newData = payload.new;
         if (newData?.program_data) {
           try {
-            callback(JSON.parse(newData.program_data));
-          } catch {
+            const program = JSON.parse(newData.program_data);
+            console.log('📡 Received program update:', {
+              sessionsCount: program.workoutSessions?.length || 0,
+              currentDay: program.currentDay,
+              currentWeek: program.currentWeek
+            });
+            callback(program);
+          } catch (err) {
+            console.error('Failed to parse real-time program data:', err);
             callback(null);
           }
         } else {
+          console.log('📡 Real-time update with no program data');
           callback(null);
         }
       }

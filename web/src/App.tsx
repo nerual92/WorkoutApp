@@ -146,6 +146,12 @@ function App() {
       
       if (authUser && !isRemoteUpdate.current) {
         const currentData = JSON.stringify(userProgram);
+        const lastSaved = lastSavedToSupabase.current;
+        
+        console.log('  🔍 Checking if save needed...');
+        console.log('    Current hash:', currentData.substring(0, 50) + '...');
+        console.log('    Last saved hash:', lastSaved ? lastSaved.substring(0, 50) + '...' : 'null');
+        console.log('    Data equal?:', currentData === lastSaved);
         
         // Only save if data actually changed
         if (currentData !== lastSavedToSupabase.current) {
