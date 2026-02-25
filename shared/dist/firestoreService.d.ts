@@ -1,4 +1,8 @@
-import type { UserProgram } from './types';
+import type { UserProgram, WorkoutSession } from './types';
+/**
+ * Save individual workout session to workout_sessions table
+ */
+export declare function saveWorkoutSession(uid: string, session: WorkoutSession, programName: string): Promise<void>;
 /**
  * Save user program data to Supabase.
  * Uses upsert on the user_programs table.

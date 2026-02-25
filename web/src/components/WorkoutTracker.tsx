@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import type { UserProgram, WorkoutSet, WorkoutSession } from 'workout-shared';
+import type { UserProgram, WorkoutSet, WorkoutSession, AuthUser } from 'workout-shared';
 import { EXERCISES } from 'workout-shared';
-import { generateId, getTodayISO, getWeekProgression, getLastWeightForExercise } from 'workout-shared';
+import { generateId, getTodayISO, getWeekProgression, getLastWeightForExercise, saveWorkoutSession } from 'workout-shared';
 import { Check, Lock, ChevronLeft, ChevronRight, SkipForward } from 'lucide-react';
 import { useToast } from '../App';
 import ConfirmModal from './ConfirmModal';
@@ -75,9 +75,10 @@ interface WorkoutTrackerProps {
   onUpdate: (program: UserProgram) => void;
   dayOverride?: number | null;
   onComplete?: () => void;
+  authUser: AuthUser | null;
 }
 
-export default function WorkoutTracker({ program, onUpdate, dayOverride, onComplete }: WorkoutTrackerProps) {
+export default function WorkoutTracker({ program, onUpdate, dayOverride, onComplete, authUser }: WorkoutTrackerProps) {
   const activeDayNumber = dayOverride ?? program.currentDay;
   const currentDay = program.program.days[activeDayNumber - 1];
   const weekProgression = getWeekProgression(program.currentWeek);
@@ -274,6 +275,15 @@ export default function WorkoutTracker({ program, onUpdate, dayOverride, onCompl
       completed: true,
       notes: notes || undefined,
     };
+
+    // Save individual session to workout_sessions table
+    if (authUser) {
+      saveWorkoutSession(authUser.id, session, program.program.name)
+        .then(() => console.log('💪 Individual session saved to workout_sessions table'))
+        .catch(err => console.error('Failed to save individual session:', err));
+    } else {
+      console.warn('⚠️ Not saving individual session - user not authenticated');
+    }
 
     // Advance the "next up" day pointer
     // If they completed the current "next" day, advance it

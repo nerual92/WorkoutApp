@@ -1,6 +1,44 @@
 import { supabase } from './supabase';
-import type { UserProgram } from './types';
+import type { UserProgram, WorkoutSession } from './types';
 import type { RealtimeChannel } from '@supabase/supabase-js';
+
+/**
+ * Save individual workout session to workout_sessions table
+ */
+export async function saveWorkoutSession(
+  uid: string, 
+  session: WorkoutSession, 
+  programName: string
+): Promise<void> {
+  console.log('💪 saveWorkoutSession called:', {
+    uid,
+    sessionId: session.id,
+    date: session.date,
+    programDay: session.programDay,
+    setsCount: session.sets.length
+  });
+
+  const { error } = await supabase
+    .from('workout_sessions')
+    .upsert({
+      id: session.id,
+      user_id: uid,
+      date: session.date,
+      program_name: programName,
+      program_day: session.programDay,
+      sets: session.sets,
+      completed: session.completed,
+      notes: session.notes || null,
+      updated_at: new Date().toISOString(),
+    }, { onConflict: 'id' });
+
+  if (error) {
+    console.error('Failed to save workout session:', error);
+    throw error;
+  }
+
+  console.log('💪 saveWorkoutSession success');
+}
 
 /**
  * Save user program data to Supabase.

@@ -527,6 +527,7 @@ function App() {
               onUpdate={setUserProgram}
               dayOverride={workoutDayOverride}
               onComplete={handleWorkoutComplete}
+              authUser={authUser}
             />
           )}
           {currentView === 'analytics' && userProgram && (
