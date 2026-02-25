@@ -41,6 +41,8 @@ function App() {
   const firestoreUnsubRef = useRef<(() => void) | null>(null);
   // Track whether we're currently processing a remote update to avoid re-saving
   const isRemoteUpdate = useRef(false);
+  // Track last data saved to Supabase to prevent duplicate saves
+  const lastSavedToSupabase = useRef<string | null>(null);
 
   const showToast = useCallback((text: string, type: ToastMessage['type'] = 'success', action?: ToastMessage['action']) => {
     const id = `${Date.now()}-${Math.random().toString(36).substr(2, 5)}`;
@@ -86,7 +88,11 @@ function App() {
         setCurrentView(prev => prev === 'setup' ? 'home' : prev);
         localStorage.setItem('userProgram', JSON.stringify(program));
       }
-      isRemoteUpdate.current = false;
+      // Keep the flag true through the next render cycle to prevent re-saving
+      setTimeout(() => {
+        isRemoteUpdate.current = false;
+        console.log('☁️ Remote update flag cleared');
+      }, 100);
     });
 
     return () => {
@@ -139,14 +145,28 @@ function App() {
       });
       
       if (authUser && !isRemoteUpdate.current) {
-        console.log('  ☁️ Saving to Supabase...');
-        saveUserProgram(authUser.id, userProgram)
-          .then(() => console.log('  ✅ Saved to Supabase'))
-          .catch(err => console.error('  ❌ Supabase save failed:', err));
+        const currentData = JSON.stringify(userProgram);
+        
+        // Only save if data actually changed
+        if (currentData !== lastSavedToSupabase.current) {
+          console.log('  ☁️ Data changed - saving to Supabase...');
+          lastSavedToSupabase.current = currentData;
+          saveUserProgram(authUser.id, userProgram)
+            .then(() => console.log('  ✅ Saved to Supabase'))
+            .catch(err => {
+              console.error('  ❌ Supabase save failed:', err);
+              // Reset so we can retry
+              lastSavedToSupabase.current = null;
+            });
+        } else {
+          console.log('  ⏭️ Data unchanged - skipping Supabase save');
+        }
       } else if (!authUser) {
         console.log('  ⚠️ Skipping Supabase save - not authenticated');
       } else if (isRemoteUpdate.current) {
         console.log('  ⚠️ Skipping Supabase save - this IS a remote update');
+        // Update the lastSaved ref so we don't re-save this data later
+        lastSavedToSupabase.current = JSON.stringify(userProgram);
       }
     }
   }, [userProgram, authUser]);
